@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>NHC System Resolution Search</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="../../../dhis-web-commons/bootstrap/css/bootstrap.min.css">
+    <link href="css/custom.css" rel="stylesheet">
+    <!--script src="js/respond.min.js"></script-->
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+	<div class="container">
+		<!-- row 1: header -->
+		
+		<header>
+		    <div class="container">
+		        <div class="row">
+		            <img src="img/logo.jpg" class="img-responsive" alt="NHC Portal">
+		        </div>
+		    </div>
+		</header>
+
+		<!-- row 3: article/aside -->
+		<div>
+	         
+	            <div class="col-lg-4 col-xs-5">	
+		            <div class="panel panel-default">
+		              <div class="panel-heading">
+					    <h3 class="panel-title">Search for system resolution number</h3>
+					  </div>
+					  <div class="panel-body">
+					    
+					    <div class="row">
+					    	<div class="col-lg-6">
+    							<div class="input-group">
+      								<input type="text" class="form-control" id="resolutionID" placeholder="Search for...">
+      								<span class="input-group-btn">
+        								<button class="btn btn-default" type="button" id="searchButton">Go!</button>
+      								</span>
+    							</div><!-- /input-group -->
+  							</div><!-- /.col-lg-6 -->
+  						</div><!-- /.row -->
+					  </div>
+					</div>
+				</div>
+
+
+        </div><!-- end row 3 -->
+
+		<footer>
+			<div class="container">
+            	Powered by <a href="www.dhis2.org">DHIS2</a>
+        	</div>
+		</footer>
+	</div><!-- end container -->
+
+    
+<!-- javascript -->
+    <script type="text/javascript" src="../../../dhis-web-commons/javascripts/jQuery/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../dhis-web-commons/bootstrap/js/bootstrap.min.js"></script>
+
+
+    <!-- Main App Coding -->
+	<script>
+	document.getElementById("searchButton").onclick = function() {searchForSysResNo()};
+	
+	function searchForSysResNo(){
+	    	//SysResNo=j3ga0iRBaef
+	    	//program=j3AK6grU44H
+	    	//stage=LQaxZL3LYvS
+	    	//resolutionID
+	var resID = document.getElementById("resolutionID").value;
+	
+	    	if (resID != ""){
+	    		//View used to get the tracker entity instance UID
+	    		var searchView = "../../sqlViews/As9BtXuOaLE/data.json?criteria=SystemResolutionNumber:" + resID;
+		    	
+		    	$.getJSON(searchView, function(data) {
+					//One record found, open the tracker app.
+		    		if ((data.rows).length = 1){
+		    			
+		    			window.open("../../../dhis-web-tracker-capture/index.html#/dashboard?tei=" + data.rows[0][1] + "&program=j3AK6grU44H","_self");
+		    		}else if ((data.rows).length > 1){
+		    			// more than one item with the same system id - 
+		    			
+		    		}else{
+		    			// No item found
+		    			
+		    		}
+		    		
+		    		//262031
+		    		
+		    	}); //getJSON
+	    	} // if
+	    	
+	    	
+	    }
+
+	</script>
+</body>
+</html>
